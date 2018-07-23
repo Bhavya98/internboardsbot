@@ -1,0 +1,19 @@
+{
+  "name": "internboardsbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bhavya",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "http": "0.0.0",
+    "npm": "^6.2.0",
+    "request": "^2.87.0",
+    "save": "^2.3.2"
+  }
+}

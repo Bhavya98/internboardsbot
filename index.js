@@ -14,6 +14,7 @@ extended: true
 
 server.post('/submit', (req, res) => {
     const reqcategory = req.body.result.parameters.category;
+    const reqlocation = req.body.result.parameters.location;
     // const reqUrl = encodeURI(config.base_url + `/internship/read/?search=${category}`);
     console.log(reqcategory);
     var options = { method: 'GET',
@@ -23,12 +24,13 @@ server.post('/submit', (req, res) => {
     {  
          'Content-Type': 'application/json'
     },
-  body: { result: { parameters: { category: reqcategory, location: 'Delhi' } } },
+  body: { result: { parameters: { category: reqcategory, location: reqlocation } } },
   json: true };
 
 request(options, function (error, response, body) {
   if (error) throw new Error(error);
-
+  
+  res.json(body);
   console.log(body);
 });
 

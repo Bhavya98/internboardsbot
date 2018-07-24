@@ -4,9 +4,9 @@ const bodyParser = require('body-parser');
 const http = require('http');
 const config = require("./config");
 const request = require('request');
+const verificationController = require('./verification');
 
 const server = express();
-
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({
 extended: true
@@ -15,8 +15,16 @@ extended: true
 server.post('/submit', (req, res) => {
     const reqcategory = req.body.result.parameters.category;
     const reqlocation = req.body.result.parameters.location;
-    // const reqUrl = encodeURI(config.base_url + `/internship/read/?search=${category}`);
-    console.log(reqcategory);
+    // const reqcomapny = req.body.result.parameters.comapny;
+    // const reqapproved = req.body.result.parameters.approved;
+    // const reqskills = req.body.result.parameters.skills;
+    // const reqPPO = req.body.result.parameters.PPO;
+    // const reqfree_snacks = req.body.result.parameters.free_snacks;
+    // const reqletter_of_recommendation = req.body.result.parameters.letter_of_recommendation;
+    // const reqflexible_work_hours = req.body.result.parameters.flexible_work_hours;
+    // const reqcertificate = req.body.result.parameters.certificate;
+    // const reqinformal_dress_code = req.body.result.parameters.informal_dress_code;
+   
     var options = { method: 'GET',
     url: 'http://api.internboards.com/internship/read/',
     qs: { search: reqcategory },
@@ -24,14 +32,36 @@ server.post('/submit', (req, res) => {
     {  
          'Content-Type': 'application/json'
     },
-  body: { result: { parameters: { category: reqcategory, location: reqlocation } } },
-  json: true };
+    body: { 
+        result: { 
+            parameters: { 
+                category: reqcategory, 
+                location: reqlocation, 
+                // comapny: reqcomapny, 
+                // approved: reqapproved,
+                // skills: reqskills,
+                // PPO: reqPPO,
+                // free_snacks: reqfree_snacks,
+                // letter_of_recommendation: reqletter_of_recommendation,
+                // flexible_work_hours: reqflexible_work_hours,
+                // certificate: reqcertificate,
+                // informal_dress_code: reqinformal_dress_code
+            } 
+        } 
+    },
+    json: true };
 
-request(options, function (error, response, body) {
-  if (error) throw new Error(error);
+    request(options, function (error, response, body) {
+        if (error) throw new Error(error);
   
-  res.json(body);
-  console.log(body);
+        res.json(body);
+        console.log(body);
+    });
+
+});
+
+server.listen((process.env.PORT || 8000), () => {
+    console.log("Server is up and running...");
 });
 
     // request.get(reqUrl).on('response',(response) => {
@@ -64,21 +94,10 @@ request(options, function (error, response, body) {
     //         source: 'get-movie-details'
     //     });
     // });
-});
-server.listen((process.env.PORT || 8000), () => {
-    console.log("Server is up and running...");
-});
+
 
 // const location = req.body.result.location;
-    // const comapny = req.body.result.comapny;
-    // const approved = req.body.result.approved;
-    // const skills = req.body.result.skills;
-    // const PPO = req.body.result.PPO;
-    // const free_snacks = req.body.result.free_snacks;
-    // const letter_of_recommendation = req.body.result.letter_of_recommendation;
-    // const flexible_work_hours = req.body.result.flexible_work_hours;
-    // const certificate = req.body.result.certificate;
-    // const informal_dress_code = req.body.result.informal_dress_code;
+    
         
     // const deadline = req.body.result.deadline;
     // const duration = req.body.result.duration;
@@ -117,6 +136,4 @@ server.listen((process.env.PORT || 8000), () => {
     //     duration = empty;
     // }
 
-    // const reqUrl = encodeURI(config.base_url + 
-    //     `?category=${category}&location=${location}&company=${company}&approvied=${approved}&${skills}&${PPO}&${free_snacks}&${letter_of_recommendation}&${flexible_work_hours}&${certificate}&${informal_dress_code}&${deadline}&${duration}`);
     
